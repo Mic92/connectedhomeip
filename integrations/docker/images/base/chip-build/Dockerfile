@@ -1,5 +1,5 @@
-# start with Ubuntu 20.04LTS
-FROM ubuntu:focal
+# start with Ubuntu 22.04LTS
+FROM ubuntu:jammy
 LABEL org.opencontainers.image.source https://github.com/project-chip/connectedhomeip
 
 VOLUME "/var/source"
@@ -82,9 +82,9 @@ RUN set -x \
     ninja-build \
     pkg-config \
     python-is-python3 \
-    python3.9 \
-    python3.9-dev \
-    python3.9-venv \
+    python3.10 \
+    python3.10-dev \
+    python3.10-venv \
     rsync \
     shellcheck \
     strace \
@@ -126,15 +126,15 @@ RUN case ${TARGETPLATFORM} in \
     && exec bash \
     && : # last line
 
-# Python 3.9 and PIP
+# Python 3.10 and PIP
 RUN set -x \
     && DEBIAN_FRONTEND=noninteractive  apt-get update \
     && DEBIAN_FRONTEND=noninteractive  apt-get install -y libgirepository1.0-dev \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y software-properties-common \
     && add-apt-repository universe \
     && curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py \
-    && python3.9 get-pip.py \
-    && update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.9 1 \
+    && python3.10 get-pip.py \
+    && update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.10 1 \
     && rm -rf /var/lib/apt/lists/ \
     && : # last line
 
